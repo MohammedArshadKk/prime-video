@@ -13,7 +13,7 @@ class CustomText extends StatelessWidget {
                 color: Colors.white,
                 fontSize: 17,
                 fontFamily: 'AmazonEmber',
-                fontWeight: FontWeight.bold
+                fontWeight: FontWeight.w600 
                ),),
             ],
           ),

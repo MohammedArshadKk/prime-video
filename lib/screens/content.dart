@@ -1,15 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:prime/api/constants.dart';
-import 'package:prime/model/movie_model.dart';
 
 class Moviecontent extends StatelessWidget {
-  final MovieModel movie;
-
+  final dynamic movie;
   const Moviecontent({
     super.key,
     required this.movie,
   });
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(

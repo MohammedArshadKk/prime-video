@@ -6,22 +6,26 @@ import 'package:prime/widgets/carousel_slider.dart';
 import 'package:prime/widgets/custom_horizontal_list.dart';
 import 'package:prime/widgets/custom_text.dart';
 
-class AllContent extends StatefulWidget {
-  const AllContent({super.key});
+class MoviesScreen extends StatefulWidget {
+  const MoviesScreen({super.key});
 
   @override
-  _AllContentState createState() => _AllContentState();
+  _MoviesScreenState createState() => _MoviesScreenState();
 }
 
 late Future<List<MovieModel>> trendingMovie;
 late Future<List<MovieModel>> popularMovie;
+late Future<List<MovieModel>> topRatedMovie;
+late Future<List<MovieModel>> upcomingMovie;
 
-class _AllContentState extends State<AllContent> {
+class _MoviesScreenState extends State<MoviesScreen> {
   @override
   void initState() {
     super.initState();
     trendingMovie = Api().getAllTrendingMovie();
     popularMovie = Api().getAllPopularMovie();
+    topRatedMovie=Api().getAllRatedMovies();
+    upcomingMovie=Api().getAllUpcomingMovies();
   }
 
   @override
@@ -31,7 +35,7 @@ class _AllContentState extends State<AllContent> {
         children: [
           SizedBox(
             child: FutureBuilder(
-              future: trendingMovie,
+              future: topRatedMovie,
               builder: (context, snapshot) {
                 if (snapshot.hasError) {
                   return Text(snapshot.error.toString());
@@ -45,7 +49,7 @@ class _AllContentState extends State<AllContent> {
               },
             ),
           ),
-          const CustomText(text: 'Prime - All time favourites >'),
+          const CustomText(text: 'Top 10 movies '),
           FutureBuilder(
             future: popularMovie,
             builder: (context, snapshot) {
@@ -69,33 +73,33 @@ class _AllContentState extends State<AllContent> {
           const SizedBox(
             height: 20,
           ),
-          const CustomText(text: 'Prime - Filmfare OTT Award Winners >'),
+          const CustomText(text: 'Prime - Upcoming movies >'),
+          FutureBuilder(
+            future: upcomingMovie,
+            builder: (context, snapshot) {
+              if (snapshot.hasError) {
+                return Text(snapshot.error.toString());
+              } else if (snapshot.hasData) {
+                return CustomHorizontalList(
+                  height: 120,
+                  width: 200,
+                  borderRadius: 10,
+                  snapshot: snapshot,
+                );
+              } else {
+                return const SpinKitThreeInOut(
+                  color: Colors.white,
+                  size: 50.0,
+                );
+              }
+            },
+          ),
+          const SizedBox(
+            height: 20,
+          ),
+          const CustomText(text: 'Prime - Amazon Original movies >'),
           FutureBuilder(
             future: trendingMovie,
-            builder: (context, snapshot) {
-              if (snapshot.hasError) {
-                return Text(snapshot.error.toString());
-              } else if (snapshot.hasData) {
-                return CustomHorizontalList(
-                  height: 120,
-                  width: 200,
-                  borderRadius: 10,
-                  snapshot: snapshot,
-                );
-              } else {
-                return const SpinKitThreeInOut(
-                  color: Colors.white,
-                  size: 50.0,
-                );
-              }
-            },
-          ),
-          const SizedBox(
-            height: 20,
-          ),
-          const CustomText(text: 'Prime - Amazon Original series >'),
-          FutureBuilder(
-            future: popularMovie,
             builder: (context, snapshot) {
               if (snapshot.hasError) {
                 return Text(snapshot.error.toString());
@@ -116,7 +120,7 @@ class _AllContentState extends State<AllContent> {
           ),
           const CustomText(text: "Prime - Recommended movies "),
           FutureBuilder(
-            future: trendingMovie,
+            future: upcomingMovie,
             builder: (context, snapshot) {
               if (snapshot.hasError) {
                 return Text(snapshot.error.toString());

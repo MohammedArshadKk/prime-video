@@ -20,7 +20,7 @@ class _CarouselSliderWidgetState extends State<CarouselSliderWidget> {
           options: CarouselOptions(
             height: 230,
             autoPlay: true,
-            autoPlayInterval: const Duration(seconds: 2),
+            autoPlayInterval: const Duration(seconds: 10),
             scrollDirection: Axis.horizontal,
             viewportFraction: 1.0,
             onPageChanged: (index, reason) {
@@ -32,15 +32,14 @@ class _CarouselSliderWidgetState extends State<CarouselSliderWidget> {
           itemCount: widget.snapshot.data.length,
           itemBuilder: (context, index, realIndex) {
             return InkWell(
-                 onTap: () {
-            Navigator.push(
-                context,
-                MaterialPageRoute(
-                    builder: (ctx) => Moviecontent(
-                          movie: widget.snapshot.data[index], 
-                          
-                        )));
-          },
+              onTap: () {
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (ctx) => Moviecontent(
+                              movie: widget.snapshot.data[index],
+                            )));
+              },
               child: SizedBox(
                 width: double.infinity,
                 child: Image.network(

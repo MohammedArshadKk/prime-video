@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 
 class CustomTabBar extends StatefulWidget {
-  const CustomTabBar({super.key});
+   final Function(String) onCategorySelected;
+  const CustomTabBar({super.key ,required this.onCategorySelected});
 
   @override
   State<CustomTabBar> createState() => _CustomTabBarState();
@@ -24,6 +25,7 @@ class _CustomTabBarState extends State<CustomTabBar> {
                 setState(() {
                   selectedCategory = 'All';
                 });
+                widget.onCategorySelected(selectedCategory);
               },
               child: Container(
                 height: 40,
@@ -55,6 +57,7 @@ class _CustomTabBarState extends State<CustomTabBar> {
                 setState(() {
                   selectedCategory = 'Movies';
                 });
+               widget.onCategorySelected(selectedCategory);
               },
               child: Container(
                 height: 40,
@@ -87,6 +90,7 @@ class _CustomTabBarState extends State<CustomTabBar> {
                 setState(() {
                   selectedCategory = 'Tv shows';
                 });
+                 widget.onCategorySelected(selectedCategory);
               },
               child: Container(
                 height: 40,

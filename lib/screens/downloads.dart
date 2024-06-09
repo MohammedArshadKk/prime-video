@@ -12,7 +12,7 @@ class Downloads extends StatelessWidget {
          mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Icon(
-              Icons.download,
+              Icons.download_for_offline_rounded,
               color: Colors.white,
               size: 50,
             ),

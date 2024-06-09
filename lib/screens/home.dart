@@ -1,17 +1,29 @@
 import 'package:flutter/material.dart';
 import 'package:prime/screens/all_content.dart';
+import 'package:prime/screens/movies.dart';
+import 'package:prime/screens/tv_shows.dart';
 import 'package:prime/widgets/appbar_icon.dart';
 import 'package:prime/widgets/custom_tab_bar.dart.dart';
 
-class HomeScreen extends StatelessWidget {
+class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
 
   @override
+  State<HomeScreen> createState() => _HomeScreenState();
+}
+
+class _HomeScreenState extends State<HomeScreen> {
+  String selectedCategory = 'All';
+  categoryselected(category) {
+    setState(() {
+      selectedCategory = category;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor:  Colors.black,
+      backgroundColor: Colors.black,
       appBar: AppBar(
         backgroundColor: Colors.black,
         title: const Padding(
@@ -19,15 +31,25 @@ class HomeScreen extends StatelessWidget {
           child: AppbarIcon(),
         ),
       ),
-      body: const Column(
+      body: Column(
         children: [
-          CustomTabBar(),
-          Expanded(child: AllContent()),
+          CustomTabBar(
+            onCategorySelected: categoryselected,
+          ),
+          Expanded(child: showSelectedScreen(selectedCategory)),
         ],
       ),
-      // bottomNavigationBar: BottomNavigationBar(items: [
-        
-      // ]),
     );
   }
-}     
+}
+
+showSelectedScreen(String category) {
+  switch (category) {
+    case 'Movies':
+      return const MoviesScreen();
+    case 'Tv shows':
+      return const TvShowsScreen();
+    default:
+      return const AllContent();
+  }
+}
